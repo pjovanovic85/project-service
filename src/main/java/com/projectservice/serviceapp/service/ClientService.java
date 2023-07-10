@@ -4,7 +4,7 @@ import com.projectservice.serviceapp.Mapper;
 import com.projectservice.serviceapp.dto.ClientDto;
 import com.projectservice.serviceapp.model.Client;
 import com.projectservice.serviceapp.repository.ClientRepository;
-import com.projectservice.serviceapp.repository.ClientSpecification;
+import com.projectservice.serviceapp.GenericSpecification;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -24,6 +24,9 @@ public class ClientService {
 
     @Autowired
     private ClientRepository clientRepository;
+
+    @Autowired
+    GenericSpecification genericSpecification;
 
     public List<ClientDto> getAllClients() {
         List<Client> all = clientRepository.findAll();
@@ -48,7 +51,7 @@ public class ClientService {
     }
 
     public List<ClientDto> getClientsByParams(Map<String, String> params){
-        List<Client> clients = clientRepository.findAll(ClientSpecification.hasParameter(params));
+        List<Client> clients = clientRepository.findAll(genericSpecification.hasParameter(params));
 
         return mapper.mapToDtoList(clients, ClientDto.class);
     }
