@@ -3,6 +3,7 @@ package com.projectservice.serviceapp.model;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.List;
 
 
 @Data
@@ -23,5 +24,8 @@ public class Client {
     @Column(nullable = false)
     private String email;
     private String address;
+
+    @OneToMany(mappedBy = "client")
+    private List<ServiceReport> serviceReports;
 
 }

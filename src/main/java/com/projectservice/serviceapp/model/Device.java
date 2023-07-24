@@ -6,6 +6,7 @@ import lombok.*;
 import javax.persistence.*;
 import java.sql.Blob;
 import java.sql.Date;
+import java.util.List;
 
 @Data
 @Builder
@@ -28,7 +29,13 @@ public class Device {
     private String serialNumber;
     @Column(name = "additional_param")
     private String additionalParam;
-    @OneToOne(cascade = CascadeType.ALL)
-    @JsonManagedReference
-    private Warranty warranty;
+    @Column(name = "purchase_date")
+    private Date purchaseDate;
+    @Column(name = "warranty_period")
+    private int warrantyPeriod;
+    @Lob
+    private Blob picture;
+
+    @OneToMany(mappedBy = "device")
+    private List<ServiceReport> serviceReports;
 }

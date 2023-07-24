@@ -26,7 +26,7 @@ public class ClientService {
     private ClientRepository clientRepository;
 
     @Autowired
-    GenericSpecification genericSpecification;
+    private GenericSpecification genericSpecification;
 
     public List<ClientDto> getAllClients() {
         List<Client> all = clientRepository.findAll();
