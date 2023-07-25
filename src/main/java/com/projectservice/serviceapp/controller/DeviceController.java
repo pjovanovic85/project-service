@@ -1,9 +1,6 @@
 package com.projectservice.serviceapp.controller;
 
-import com.projectservice.serviceapp.dto.ClientDto;
 import com.projectservice.serviceapp.dto.DeviceDto;
-import com.projectservice.serviceapp.model.Client;
-import com.projectservice.serviceapp.model.Device;
 import com.projectservice.serviceapp.service.DeviceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -15,6 +12,7 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
+@CrossOrigin(origins = "http://localhost:4200")
 @RequestMapping("/api/device")
 public class DeviceController {
 
