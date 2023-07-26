@@ -16,6 +16,7 @@ import org.springframework.stereotype.Service;
 
 import java.sql.Date;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -29,8 +30,8 @@ public class ServiceReportService {
     @Autowired private GenericSpecification genericSpecification;
     @Autowired private Mapper mapper;
 
-    public Page<ServiceReportDto> findAll(Pageable pageable, Map<String, String> params) {
-        Page all = serviceReportRepository.findAll(genericSpecification.hasParameter(params), pageable);
+    public Page<ServiceReportDto> findAll(Pageable pageable, Map<String, Object> params) {
+        Page all = serviceReportRepository.findAll(genericSpecification.hasNestedParameter(params), pageable);
         List<ServiceReportDto> dtoList = mapper.mapToDtoList(all.getContent(), ServiceReportDto.class);
 
         return new PageImpl<>(dtoList, all.getPageable(), all.getTotalElements());

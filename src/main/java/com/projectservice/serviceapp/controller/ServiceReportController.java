@@ -26,7 +26,7 @@ public class ServiceReportController {
                                      @RequestParam(defaultValue = "15") int pageSize,
                                      @RequestParam(defaultValue = "desc") String sortOrder,
                                      @RequestParam(defaultValue = "id") String sortField,
-                                     @RequestParam Map<String, String> params) {
+                                     @RequestParam Map<String, Object> params) {
         Sort sort = Sort.by(Sort.Direction.fromString(sortOrder), sortField);
         Pageable pageable = PageRequest.of(pageNumber, pageSize, sort);
 
