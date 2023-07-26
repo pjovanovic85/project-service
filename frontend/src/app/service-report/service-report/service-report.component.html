@@ -1,0 +1,115 @@
+<form [formGroup]="form" class="container">
+    <div class="part width-100">
+      <h2>Podaci firme</h2>
+      <div class="form-field">
+        <mat-label>Logo</mat-label>
+      </div>
+      <div class="form-field">
+        <mat-label>Adresa firme</mat-label>
+      </div>
+    </div>
+    <div class="row width-100">
+      <div formGroupName="device" class="part">
+        <h2>Uredjaj</h2>
+        <div class="form-field">
+          <mat-form-field appearance="outline" class="width-100">
+            <mat-label>DeviceGroup</mat-label>
+            <input matInput placeholder="Device Group" formControlName="deviceGroup"/>
+          </mat-form-field>
+        </div>
+        <div class="form-field">
+          <mat-form-field appearance="outline" class="width-100">
+            <mat-label>Manufacturer</mat-label>
+            <input matInput placeholder="Manufacturer" formControlName="manufacturer"/>
+          </mat-form-field>
+        </div>
+        <div class="form-field">
+          <mat-form-field appearance="outline" class="width-100">
+            <mat-label>Model</mat-label>
+            <input matInput placeholder="Model" formControlName="model"/>
+          </mat-form-field>
+        </div>
+        <div class="form-field">
+          <mat-form-field appearance="outline" class="width-100">
+            <mat-label>Serial Number</mat-label>
+            <input matInput placeholder="Serial Number" formControlName="serialNumber"/>
+          </mat-form-field>
+        </div>
+        <div class="form-field">
+          <mat-form-field appearance="outline" class="width-100">
+            <mat-label>Additional Param</mat-label>
+            <input matInput placeholder= "Additional Param" formControlName="additionalParam"/>
+          </mat-form-field>
+        </div>
+        <div class="form-field">
+          <mat-form-field appearance="outline" class="width-100">
+            <mat-label>Purchase Date in format MM/DD/YYYY</mat-label>
+            <input placeholder="Purchase Date" formControlName="purchaseDate" matInput [matDatepicker]="picker">
+            <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+          </mat-form-field>
+        </div>
+        <div class="form-field">
+          <mat-form-field appearance="outline" class="width-100">
+            <mat-label>Warranty Period format in months</mat-label>
+            <input matInput type="number" min="0" placeholder="Warranty Period" formControlName="warrantyPeriod"/>
+          </mat-form-field>
+        </div>
+      </div>
+      <div formGroupName="client" class="part">
+        <h2>Korisnik</h2>
+        <div class="form-field">
+          <mat-form-field appearance="outline" class="width-100">
+            <mat-label>Name</mat-label>
+            <input matInput placeholder="Enter your name" formControlName="name"/>
+          </mat-form-field>
+        </div>
+        <div class="form-field">
+          <mat-form-field appearance="outline" class="width-100">
+            <mat-label>Surname</mat-label>
+            <input matInput placeholder="Enter your surname" formControlName="lastName"/>
+          </mat-form-field>
+        </div>
+        <div class="form-field">
+          <mat-form-field appearance="outline" class="width-100">
+            <mat-label>Phone Number</mat-label>
+            <input matInput placeholder="Enter your phone number" formControlName="phoneNo"/>
+          </mat-form-field>
+        </div>
+        <div class="form-field">
+          <mat-form-field appearance="outline" class="width-100">
+            <mat-label>e-mail</mat-label>
+            <input matInput placeholder="Enter your e-mail" formControlName="email"/>
+          </mat-form-field>
+        </div>
+        <div class="form-field">
+          <mat-form-field appearance="outline" class="width-100">
+            <mat-label>Adress</mat-label>
+            <input matInput placeholder="Enter your adress" formControlName="adress"/>
+          </mat-form-field>
+        </div>
+      </div>
+    </div>
+    <div class="part width-100">
+      <h2>Ostali dodaci</h2>
+      <div class="form-field">
+        <mat-form-field appearance="outline" class="width-100">
+          <mat-label>Accessories</mat-label>
+          <input matInput placeholder="Accessories" formControlName="accessories"/>
+        </mat-form-field>
+      </div>
+      <div class="form-field">
+        <mat-form-field appearance="outline" class="width-100">
+          <mat-label>Addition Remark</mat-label>
+          <input matInput placeholder="Addition Remark" formControlName="additionRemark"/>
+        </mat-form-field>
+      </div>
+      <div class="form-field">
+        <mat-form-field appearance="outline" class="width-100">
+          <mat-label>Failure Description</mat-label>
+          <input matInput placeholder="Failure Description" formControlName="failureDescription"/>
+        </mat-form-field>
+      </div>
+    </div>
+    <button mat-raised-button color="primary" class="save-button" (click)="save()">SAVE</button>
+</form>
