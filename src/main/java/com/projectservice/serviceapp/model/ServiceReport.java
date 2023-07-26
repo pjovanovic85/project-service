@@ -7,11 +7,11 @@ import javax.persistence.*;
 import java.sql.Date;
 import java.util.List;
 
-@Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@ToString
+@Getter
+@Setter
 @Entity
 public class ServiceReport {
 

@@ -24,20 +24,14 @@ public class ClientController {
     private ClientService clientService;
 
     @GetMapping("/all")
-    public ResponseEntity<?> getAllClients() {
-        List<ClientDto> allClients = clientService.getAllClients();
-
-        return new ResponseEntity<>(allClients, HttpStatus.OK);
-    }
-
-    @GetMapping("/all-paged")
-    public ResponseEntity<?> getAllClientsPaged(@RequestParam int pageNumber,
+    public ResponseEntity<?> getAllClients(@RequestParam(defaultValue = "0") int pageNumber,
                                                 @RequestParam(defaultValue = "15") int pageSize,
                                                 @RequestParam(defaultValue = "desc") String sortOrder,
-                                                @RequestParam(defaultValue = "id") String sortField) {
+                                                @RequestParam(defaultValue = "id") String sortField,
+                                                @RequestParam Map<String, String> params) {
         Sort sort = Sort.by(Sort.Direction.fromString(sortOrder), sortField);
         Pageable pageable = PageRequest.of(pageNumber, pageSize, sort);
-        Page<ClientDto> allClientsPaged = clientService.getAllClientsPaged(pageable);
+        Page<ClientDto> allClientsPaged = clientService.getAllClients(pageable, params);
 
         return new ResponseEntity<>(allClientsPaged, HttpStatus.OK);
     }
@@ -47,14 +41,6 @@ public class ClientController {
         Client client = clientService.getClientById(id);
 
         return new ResponseEntity<>(client, HttpStatus.OK);
-    }
-
-
-    @GetMapping("/params")
-    public ResponseEntity<?> getClientByParams(@RequestParam Map<String, String> params) {
-        List<ClientDto> clients = clientService.getClientsByParams(params);
-
-        return new ResponseEntity<>(clients, HttpStatus.OK);
     }
 
     @PostMapping("/save")

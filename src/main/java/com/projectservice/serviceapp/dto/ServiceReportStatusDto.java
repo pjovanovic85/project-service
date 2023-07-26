@@ -8,7 +8,6 @@ import java.sql.Date;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@ToString
 public class ServiceReportStatusDto {
 
     private Integer id;

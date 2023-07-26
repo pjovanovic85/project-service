@@ -6,10 +6,11 @@ import javax.persistence.*;
 import java.util.List;
 
 
-@Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@Getter
+@Setter
 @Entity
 public class Client {
 

@@ -28,14 +28,8 @@ public class ClientService {
     @Autowired
     private GenericSpecification genericSpecification;
 
-    public List<ClientDto> getAllClients() {
-        List<Client> all = clientRepository.findAll();
-
-        return mapper.mapToDtoList(all, ClientDto.class);
-    }
-
-    public Page<ClientDto> getAllClientsPaged(Pageable pageable) {
-        Page<Client> all = clientRepository.findAll(pageable);
+    public Page<ClientDto> getAllClients(Pageable pageable, Map<String, String> params) {
+        Page<Client> all = clientRepository.findAll(genericSpecification.hasParameter(params), pageable);
         List<ClientDto> dtoList = mapper.mapToDtoList(all.getContent(), ClientDto.class);
 
         return new PageImpl<>(dtoList, all.getPageable(), all.getTotalElements());

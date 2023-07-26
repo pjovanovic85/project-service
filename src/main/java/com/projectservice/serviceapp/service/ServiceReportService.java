@@ -1,5 +1,6 @@
 package com.projectservice.serviceapp.service;
 
+import com.projectservice.serviceapp.GenericSpecification;
 import com.projectservice.serviceapp.Mapper;
 import com.projectservice.serviceapp.dto.ServiceReportDto;
 import com.projectservice.serviceapp.model.*;
@@ -8,25 +9,32 @@ import com.projectservice.serviceapp.repository.DeviceRepository;
 import com.projectservice.serviceapp.repository.ServiceReportRepository;
 import com.projectservice.serviceapp.repository.ServiceReportStatusRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.sql.Date;
 import java.time.LocalDate;
+import java.util.List;
+import java.util.Map;
 
 @Service
 public class ServiceReportService {
 
-    @Autowired
-    private ServiceReportRepository serviceReportRepository;
-    @Autowired
-    private ClientRepository clientRepository;
-    @Autowired
-    private DeviceRepository deviceRepository;
-    @Autowired
-    private ServiceReportStatusRepository statusRepository;
-    @Autowired
-    private Mapper mapper;
+    @Autowired private ServiceReportRepository serviceReportRepository;
+    @Autowired private ClientRepository clientRepository;
+    @Autowired private DeviceRepository deviceRepository;
+    @Autowired private ServiceReportStatusRepository statusRepository;
+    @Autowired private GenericSpecification genericSpecification;
+    @Autowired private Mapper mapper;
 
+    public Page<ServiceReportDto> findAll(Pageable pageable, Map<String, String> params) {
+        Page all = serviceReportRepository.findAll(genericSpecification.hasParameter(params), pageable);
+        List<ServiceReportDto> dtoList = mapper.mapToDtoList(all.getContent(), ServiceReportDto.class);
+
+        return new PageImpl<>(dtoList, all.getPageable(), all.getTotalElements());
+    }
 
     public ServiceReportDto getById(Integer id) {
         ServiceReport serviceReport = serviceReportRepository.findById(id).orElse(null);
@@ -42,7 +50,6 @@ public class ServiceReportService {
         reportStatus.setStatusCode(ServiceStatusEnum.ON_FRONT.getStatusCode());
         reportStatus.setDescription(ServiceStatusEnum.ON_FRONT.getDescription());
         reportStatus.setServiceReport(serviceReportForSave);
-//        ServiceReportStatus savedReportStatus = statusRepository.save(reportStatus);
         serviceReportForSave.setStatus(reportStatus);
         Device device = serviceReportForSave.getDevice();
         Client client = serviceReportForSave.getClient();

@@ -8,11 +8,11 @@ import java.sql.Blob;
 import java.sql.Date;
 import java.util.List;
 
-@Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@ToString
+@Getter
+@Setter
 @Entity
 public class Device {
 
