@@ -1,0 +1,38 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+}
+
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.part {
+  flex-basis: 48%;
+  margin-bottom: 20px;
+}
+
+.spacer {
+  flex-basis: 4%;
+}
+
+h2 {
+  margin-bottom: 10px;
+}
+
+.form-field {
+  margin-bottom: 0px;
+}
+
+.width-100{
+  width: 100%;
+}
+
+.save-button {
+  margin-bottom: 40px;
+}
