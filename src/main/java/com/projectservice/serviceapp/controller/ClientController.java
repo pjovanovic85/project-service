@@ -38,9 +38,9 @@ public class ClientController {
 
     @GetMapping("/id")
     public ResponseEntity<?> getClientById(@RequestParam Integer id) {
-        Client client = clientService.getClientById(id);
+        ClientDto clientDto = clientService.getClientById(id);
 
-        return new ResponseEntity<>(client, HttpStatus.OK);
+        return new ResponseEntity<>(clientDto, HttpStatus.OK);
     }
 
     @PostMapping("/save")
