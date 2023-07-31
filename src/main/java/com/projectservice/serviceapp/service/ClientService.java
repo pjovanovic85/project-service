@@ -35,10 +35,10 @@ public class ClientService {
         return new PageImpl<>(dtoList, all.getPageable(), all.getTotalElements());
     }
 
-    public Client getClientById(Integer id) {
+    public ClientDto getClientById(Integer id) {
         Optional<Client> byId = clientRepository.findById(id);
         if (byId.isPresent()) {
-            return byId.get();
+            return (ClientDto) mapper.mapToDto(byId.get(), ClientDto.class);
         } else {
             throw new NoSuchElementException();
         }

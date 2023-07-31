@@ -26,5 +26,5 @@ public class ServiceReportDto {
     @JsonBackReference
     private DeviceDto device;
     private ClientDto client;
-    private List<SparePart> sparePartList;
+    private List<SparePartDto> sparePartList;
 }
