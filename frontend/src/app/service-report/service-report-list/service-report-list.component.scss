@@ -1,0 +1,38 @@
+.table-container {
+  margin: 20px;
+}
+
+.search-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  margin-bottom: 10px;
+}
+
+mat-form-field {
+  // width: 100%;
+  //width: calc(20% - 10px); /* Distribute inputs evenly with some margin */
+  margin-right: 10px;
+}
+
+.header-group {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+
+  .header-title {
+    text-transform: uppercase;
+    font-weight: 700;
+    color: #5491ac;
+  }
+}
+
+::ng-deep .header-group .mat-form-field-underline {
+  background-color: lightgrey !important;
+}
+
+.search-label {
+  color: lightgrey;
+  font-size: 0.75rem;
+}

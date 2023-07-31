@@ -1,3 +1,8 @@
+# How to start frontend application
+1. First go to project directory. Example: "cd frontend".
+2. Then `npm install` or `npm i`
+3. then `npm start`
+
 # ServisniIzvestaj
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 16.0.5.

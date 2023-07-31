@@ -4,8 +4,8 @@ import { ShellService } from './shell/shell.service';
 
 const routes: Routes = [
   ShellService.childRoutes([
-    { path: '', loadChildren: () => import('./service-report/service-report.module').then((m) => m.ServiceReportModule) },
-    { path: '**', redirectTo: '' }
+    { path: 'service-report', loadChildren: () => import('./service-report/service-report.module').then((m) => m.ServiceReportModule) },
+    { path: '**', redirectTo: 'service-report' }
   ])
 ];
 
