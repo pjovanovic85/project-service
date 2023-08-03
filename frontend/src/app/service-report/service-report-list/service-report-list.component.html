@@ -1,0 +1,44 @@
+<div class="table-container" *ngIf="(dataSource | async) as dataSource">
+
+  <mat-table [dataSource]="dataSource" matSort>
+    <ng-container matColumnDef="actions">
+      <mat-header-cell *matHeaderCellDef></mat-header-cell>
+      <mat-cell *matCellDef="let row">
+        <button mat-icon-button (click)="navigateToDetails(row.id)">
+          <mat-icon>info</mat-icon>
+        </button>
+      </mat-cell>
+    </ng-container>
+
+    <ng-container *ngFor="let tableColumn of tableColumns; let i = index">
+      <ng-container [matColumnDef]="tableColumn.field">
+        <mat-header-cell *matHeaderCellDef>
+          <header class="header-group">
+            <span mat-sort-header matTooltipPosition="above" class="header-title">{{tableColumn.header}}</span>
+            <mat-form-field>
+              <input
+                #field
+                matInput
+                placeholder="Search"
+                (click)="$event.stopPropagation()"
+                (keyup)="onFilterChange(field.value, tableColumn.field)"
+                (keydown)="$event.stopPropagation()"
+              /></mat-form-field>
+          </header>
+        </mat-header-cell>
+        <mat-cell *matCellDef="let row">{{ row | tableColumnField: tableColumn.field}}</mat-cell>
+      </ng-container>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+  </mat-table>
+
+  <mat-paginator
+    [length]="pageInfo ? pageInfo.totalElements : 1"
+    [pageSize]="query && query.page && query.page.pageSize"
+    [pageSizeOptions]="[5, 10, 15, 20]"
+    [pageIndex]="query && query.page && query.page.pageIndex"
+    (page)="onPageChange($event)"
+  ></mat-paginator>
+</div>
