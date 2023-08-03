@@ -1,13 +1,9 @@
 package com.projectservice.serviceapp.dto;
 
-import com.projectservice.serviceapp.model.ServiceReportSparePart;
-import lombok.*;
-
-import javax.persistence.CascadeType;
-import javax.persistence.OneToMany;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
 @Builder

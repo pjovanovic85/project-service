@@ -19,16 +19,16 @@ public class DeviceController {
     @Autowired
     private DeviceService deviceService;
 
-    @GetMapping(value = "/id", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<?> getDeviceById(@RequestParam Integer id) {
-        DeviceDto deviceDto = deviceService.findById(id);
+    @GetMapping(value = "/all", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<?> getDeviceByParam(@RequestParam Map<String, String> params) {
+        List<DeviceDto> deviceDto = deviceService.getAllDevices(params);
 
         return new ResponseEntity<>(deviceDto, HttpStatus.OK);
     }
 
-    @GetMapping(value = "/params", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<?> getDeviceByParam(@RequestParam Map<String, String> params) {
-        List<DeviceDto> deviceDto = deviceService.findBySerialNumber(params);
+    @GetMapping(value = "/id", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<?> getDeviceById(@RequestParam Integer id) {
+        DeviceDto deviceDto = deviceService.findById(id);
 
         return new ResponseEntity<>(deviceDto, HttpStatus.OK);
     }

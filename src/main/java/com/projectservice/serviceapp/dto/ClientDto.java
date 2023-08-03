@@ -1,7 +1,6 @@
 package com.projectservice.serviceapp.dto;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-import com.projectservice.serviceapp.model.ServiceReport;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.*;
 
 import java.util.List;
@@ -19,4 +18,6 @@ public class ClientDto {
     private String phoneNo;
     private String email;
     private String address;
+    @JsonBackReference
+    private List<ServiceReportDto> serviceReports;
 }

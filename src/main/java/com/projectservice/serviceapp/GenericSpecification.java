@@ -20,8 +20,12 @@ public class GenericSpecification<Entity> {
             List<Predicate> predicates = new ArrayList<>();
             for (Map.Entry<String, String> entry : parameters.entrySet()) {
                 String attributeName = entry.getKey();
-                if (!EXCLUDE_PARAMS.contains(attributeName)){
-                    predicates.add(criteriaBuilder.like(root.get(attributeName), "%" + entry.getValue() + "%"));
+                if (!EXCLUDE_PARAMS.contains(attributeName)) {
+                    if ("id".equalsIgnoreCase(attributeName)){
+                        predicates.add(criteriaBuilder.equal(root.get(attributeName), entry.getValue()));
+                    } else {
+                        predicates.add(criteriaBuilder.like(root.get(attributeName), "%" + entry.getValue() + "%"));
+                    }
                 }
             }
             return criteriaBuilder.and(predicates.toArray(new Predicate[predicates.size()]));
@@ -29,28 +33,36 @@ public class GenericSpecification<Entity> {
     }
 
 
-    public Specification<Entity> hasNestedParameter(Map<String, Object> parameters){
+    public Specification<Entity> hasNestedParameter(Map<String, Object> parameters) {
         return (root, query, criteriaBuilder) -> {
             List<Predicate> predicates = new ArrayList<>();
             for (Map.Entry<String, Object> entry : parameters.entrySet()) {
                 String attributeName = entry.getKey();
-                if (!EXCLUDE_PARAMS.contains(attributeName)){
+                if (!EXCLUDE_PARAMS.contains(attributeName)) {
                     Object attributeValue = entry.getValue();
-
                     Join<?, ?> join = null;
                     String[] attributeNames = attributeName.split("\\.");
-
-                    for (int i = 0; i < attributeNames.length - 1; i++) {
-                        if (join == null) {
-                            join = root.join(attributeNames[i]);
+                    if (attributeNames.length == 1){
+                        if (attributeValue instanceof List) {
+                            predicates.add(root.get(attributeNames[attributeNames.length - 1]).in((List<?>) attributeValue));
+                        } else if ("id".equalsIgnoreCase(attributeNames[attributeNames.length - 1])) {
+                            predicates.add(criteriaBuilder.equal(root.get(attributeNames[attributeNames.length - 1]), entry.getValue()));
                         } else {
-                            join = join.join(attributeNames[i]);
+                            predicates.add(criteriaBuilder.like(root.get(attributeNames[attributeNames.length - 1]), "%" + entry.getValue() + "%"));
                         }
-                    }
-                    if (attributeValue instanceof List){
-                        predicates.add(join.get(attributeNames[attributeNames.length - 1]).in((List<?>) attributeValue));
                     }else {
-                        predicates.add(criteriaBuilder.like(join.get(attributeNames[attributeNames.length - 1]), "%" + attributeValue + "%"));
+                        for (int i = 0; i < attributeNames.length - 1; i++) {
+                            if (join == null) {
+                                join = root.join(attributeNames[i]);
+                            } else {
+                                join = join.join(attributeNames[i]);
+                            }
+                            if (attributeValue instanceof List) {
+                                predicates.add(join.get(attributeNames[attributeNames.length - 1]).in((List<?>) attributeValue));
+                            } else {
+                                predicates.add(criteriaBuilder.like(join.get(attributeNames[attributeNames.length - 1]), "%" + attributeValue + "%"));
+                            }
+                        }
                     }
                 }
             }
