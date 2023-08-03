@@ -1,14 +1,18 @@
 package com.projectservice.serviceapp.dto;
 
+import com.projectservice.serviceapp.model.ServiceReportSparePart;
 import lombok.*;
 
+import javax.persistence.CascadeType;
+import javax.persistence.OneToMany;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
+@Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Getter
-@Setter
 public class SparePartDto {
 
 
@@ -16,5 +20,8 @@ public class SparePartDto {
     private String serialNo;
     private String name;
     private String description;
-    private List<ServiceReportDto> serviceReportList;
+    private int availableQuantity;
+    private int usedQuantity;
+    private Double price;
+    private String location;
 }

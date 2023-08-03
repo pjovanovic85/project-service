@@ -3,7 +3,9 @@ package com.projectservice.serviceapp.model;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Builder
 @NoArgsConstructor
@@ -20,6 +22,9 @@ public class SparePart {
     private String serialNo;
     private String name;
     private String description;
-    @ManyToMany
-    private List<ServiceReport> serviceReportList;
+    private int availableQuantity;
+    private Double price;
+    private String location;
+    @OneToMany(mappedBy = "serviceReportSparePartId.sparePart", cascade = CascadeType.ALL)
+    private List<ServiceReportSparePart> serviceReportSpareParts;
 }

@@ -1,12 +1,10 @@
 package com.projectservice.serviceapp;
 
-import com.projectservice.serviceapp.model.Client;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Component;
 
 import javax.persistence.criteria.Join;
 import javax.persistence.criteria.Predicate;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -21,10 +19,12 @@ public class GenericSpecification<Entity> {
         return (root, query, criteriaBuilder) -> {
             List<Predicate> predicates = new ArrayList<>();
             for (Map.Entry<String, String> entry : parameters.entrySet()) {
-                predicates.add(criteriaBuilder.like(root.get(entry.getKey()), "%" + entry.getValue() + "%"));
+                String attributeName = entry.getKey();
+                if (!EXCLUDE_PARAMS.contains(attributeName)){
+                    predicates.add(criteriaBuilder.like(root.get(attributeName), "%" + entry.getValue() + "%"));
+                }
             }
-            Predicate predicate = criteriaBuilder.and(predicates.toArray(new Predicate[predicates.size()]));
-            return predicate;
+            return criteriaBuilder.and(predicates.toArray(new Predicate[predicates.size()]));
         };
     }
 

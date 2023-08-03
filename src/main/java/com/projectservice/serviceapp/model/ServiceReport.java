@@ -5,7 +5,9 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.sql.Date;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Builder
 @NoArgsConstructor
@@ -24,16 +26,15 @@ public class ServiceReport {
     private String serviceDescription;
     private String labor;
     private String technician;
-    @OneToOne(mappedBy = "serviceReport", cascade = CascadeType.ALL)
-    private ServiceReportStatus status;
+    private Integer currentStatusCode;
+    @OneToMany(mappedBy = "serviceReport", cascade = CascadeType.ALL)
+    private List<ServiceReportStatus> statusList;
     private Date receiptDate;
     private Date checkOutDate;
-    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
-    private List<SparePart> sparePartList;
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
+    @OneToMany(mappedBy = "serviceReportSparePartId.serviceReport", cascade = CascadeType.ALL)
+    private List<ServiceReportSparePart> serviceReportSpareParts;
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
     private Device device;
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
     private Client client;
-
-
 }

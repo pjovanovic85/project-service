@@ -1,6 +1,7 @@
 package com.projectservice.serviceapp.controller;
 
 import com.projectservice.serviceapp.dto.ServiceReportDto;
+import com.projectservice.serviceapp.dto.SparePartDto;
 import com.projectservice.serviceapp.service.ServiceReportService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
@@ -49,5 +50,13 @@ public class ServiceReportController {
     public ResponseEntity<?> updateDeviceStatus(@RequestParam Integer id, @RequestParam Integer statusCode){
 
         return new ResponseEntity<>(serviceReportService.updateStatus(id, statusCode), HttpStatus.OK);
+    }
+
+    @PutMapping("/update-service-intervention")
+    public ResponseEntity<?> updateDeviceStatus(@RequestParam Integer serviceReportId,
+                                                @RequestParam String serviceDescription,
+                                                @RequestBody Map<Integer, Integer> sparePartMap){
+
+        return new ResponseEntity<>(serviceReportService.updateWithServiceIntervention(serviceReportId, sparePartMap, serviceDescription), HttpStatus.OK);
     }
 }

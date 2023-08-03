@@ -19,6 +19,6 @@ public class ServiceReportStatus {
     private int statusCode;
     private String description;
     private Date modifyDate;
-    @OneToOne()
+    @ManyToOne()
     private ServiceReport serviceReport;
 }

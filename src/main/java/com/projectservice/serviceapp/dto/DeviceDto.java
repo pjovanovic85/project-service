@@ -2,10 +2,7 @@ package com.projectservice.serviceapp.dto;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.projectservice.serviceapp.model.ServiceReport;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.Column;
 import javax.persistence.Lob;
@@ -13,10 +10,12 @@ import java.sql.Blob;
 import java.sql.Date;
 import java.util.List;
 
-@Data
+
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@Getter
+@Setter
 public class DeviceDto {
 
     private Integer id;
@@ -28,6 +27,4 @@ public class DeviceDto {
     private Date purchaseDate;
     private int warrantyPeriod;
     private Blob picture;
-    @JsonManagedReference
-    private List<ServiceReportDto> serviceReports;
 }
