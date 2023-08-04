@@ -4,6 +4,7 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.sql.Date;
+import java.time.LocalDateTime;
 
 @Builder
 @NoArgsConstructor
@@ -18,7 +19,7 @@ public class ServiceReportStatus {
     private Integer id;
     private int statusCode;
     private String description;
-    private Date modifyDate;
+    private LocalDateTime modifyDate;
     @ManyToOne()
     private ServiceReport serviceReport;
 }

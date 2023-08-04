@@ -1,6 +1,6 @@
 package com.projectservice.serviceapp.dto;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import java.sql.Blob;
@@ -25,10 +25,10 @@ public class DeviceDto {
     private int warrantyPeriod;
     private Blob picture;
     boolean haveHistory;
-    @JsonBackReference
+    @JsonIgnore
     private List<ServiceReportDto> serviceReports;
 
     public boolean isHaveHistory() {
-        return serviceReports.size()>0;
+        return serviceReports != null && serviceReports.size() > 1;
     }
 }

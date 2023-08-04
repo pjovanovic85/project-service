@@ -5,7 +5,6 @@ import lombok.*;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 
-@Builder
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
@@ -14,7 +13,7 @@ import javax.persistence.Entity;
 public class ServiceReportSparePart {
 
     @EmbeddedId
-    private ServiceReportSparePartId serviceReportSparePartId;
+    private ServiceReportSparePartId serviceReportSparePartId = new ServiceReportSparePartId();
     private int count;
 
     public ServiceReportSparePart(ServiceReport serviceReport, SparePart sparePart, int count) {

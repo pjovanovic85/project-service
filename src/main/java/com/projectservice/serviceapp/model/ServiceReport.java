@@ -5,6 +5,7 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.sql.Date;
+import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -29,8 +30,8 @@ public class ServiceReport {
     private Integer currentStatusCode;
     @OneToMany(mappedBy = "serviceReport", cascade = CascadeType.ALL)
     private List<ServiceReportStatus> statusList;
-    private Date receiptDate;
-    private Date checkOutDate;
+    private LocalDateTime receiptDate;
+    private LocalDateTime checkOutDate;
     @OneToMany(mappedBy = "serviceReportSparePartId.serviceReport", cascade = CascadeType.ALL)
     private List<ServiceReportSparePart> serviceReportSpareParts;
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)

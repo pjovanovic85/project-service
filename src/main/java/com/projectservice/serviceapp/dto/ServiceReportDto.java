@@ -1,9 +1,9 @@
 package com.projectservice.serviceapp.dto;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.*;
 
 import java.sql.Date;
+import java.time.LocalDateTime;
 import java.util.List;
 
 
@@ -21,14 +21,11 @@ public class ServiceReportDto {
     private String serviceDescription;
     private String labor;
     private String technician;
-    @JsonManagedReference
     private List<ServiceReportStatusDto> statusList;
     private Integer currentStatusCode;
-    private Date receiptDate;
-    private Date checkOutDate;
-    @JsonManagedReference
+    private String receiptDate;
+    private String checkOutDate;
     private DeviceDto device;
-    @JsonManagedReference
     private ClientDto client;
     private List<SparePartDto> sparePartList;
 }

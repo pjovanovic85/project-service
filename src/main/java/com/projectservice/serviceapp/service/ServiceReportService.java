@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 
 import java.sql.Date;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -44,11 +45,12 @@ public class ServiceReportService {
     }
 
     public ServiceReportDto save(ServiceReportDto serviceReportDto) {
-        serviceReportDto.setReceiptDate(Date.valueOf(LocalDate.now()));
+        LocalDateTime now = LocalDateTime.now();
         ServiceReport serviceReportForSave = (ServiceReport) genericMapper.mapToEntity(serviceReportDto, ServiceReport.class);
+        serviceReportForSave.setReceiptDate(now);
         List<ServiceReportStatus> statusList = new ArrayList<>();
         ServiceReportStatus reportStatus = new ServiceReportStatus();
-        reportStatus.setModifyDate(Date.valueOf(LocalDate.now()));
+        reportStatus.setModifyDate(now);
         reportStatus.setStatusCode(ServiceStatusEnum.ON_FRONT.getStatusCode());
         reportStatus.setDescription(ServiceStatusEnum.ON_FRONT.getDescription());
         reportStatus.setServiceReport(serviceReportForSave);
@@ -78,7 +80,7 @@ public class ServiceReportService {
 //            throw new Exception("already in that status");
         }
         ServiceReportStatus reportStatus = new ServiceReportStatus();
-        reportStatus.setModifyDate(Date.valueOf(LocalDate.now()));
+        reportStatus.setModifyDate(LocalDateTime.now());
         reportStatus.setServiceReport(serviceReport);
         switch (statusCode) {
             case 1:
