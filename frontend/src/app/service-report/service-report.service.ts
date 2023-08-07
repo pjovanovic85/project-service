@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { ServiceReport } from './service-report.model';
+import { PageQuery, RespObjPaged } from '../models/core.model';
 
 @Injectable({
   providedIn: 'root'
@@ -11,8 +12,19 @@ export class ServiceReportService {
 
   constructor(private http: HttpClient) { }
 
-  getAllServiceReport(): Observable<ServiceReport[]> {
-  return this.http.get<ServiceReport[]>(environment.apiURL + '/api/service-report' + '/all');
+  getAllServiceReport(query?: PageQuery): Observable<RespObjPaged<ServiceReport>> {
+    let params = new HttpParams();
+    if(query && query.page && query.page.pageIndex) params = params.set('pageNumber', query.page.pageIndex.toString());
+    if(query && query.page && query.page.pageSize) params = params.set('pageSize', query.page.pageSize.toString());
+    if(query && query.sortBy) params = params.set('sortBy', query.sortBy);
+    if(query && query.order) params = params.set('order', query.order);
+    if(query && query.search) {
+      Object.keys(query.search).forEach((el) => {
+        const queryElement = (query && query.search) ? query.search[el] : null;
+        return queryElement ? (params = params.set(el, queryElement)) : null;
+      });
+    }
+  return this.http.get<RespObjPaged<ServiceReport>>(environment.apiURL + '/api/service-report' + '/all',{params});
   }
 
   getByIdServiceReport(id: number): Observable<ServiceReport> {

@@ -1,4 +1,4 @@
-<form *ngIf="form" [formGroup]="form" class="container">
+<form [formGroup]="form" class="container">
     <div class="part width-100">
       <h2>Podaci firme</h2>
       <div class="form-field">
@@ -41,7 +41,7 @@
             <input matInput placeholder= "Additional Param" formControlName="additionalParam"/>
           </mat-form-field>
         </div>
-        <div class="form-field" [class.warranty-period-expired]="purchaseDate.value | warrantyPeriodExpired : warrantyPeriod.value">
+        <div class="form-field" [class.warranty-period-expired]="warrantyPeriodExpired(purchaseDate.value, warrantyPeriod.value)">
           <mat-form-field appearance="outline" class="width-100">
             <mat-label>Purchase Date in format MM/DD/YYYY</mat-label>
             <input placeholder="Purchase Date" formControlName="purchaseDate" matInput [matDatepicker]="picker" #purchaseDate>

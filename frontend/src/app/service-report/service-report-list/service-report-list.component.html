@@ -1,6 +1,10 @@
-<div class="table-container" *ngIf="(dataSource | async) as dataSource">
+<div class="table-container"  [formGroup]="filterForm">
 
-  <mat-table [dataSource]="dataSource" matSort>
+  <ng-container *ngFor="let checkboxStatus of statusList">
+    <mat-checkbox class="example-margin">{{checkboxStatus}}</mat-checkbox>
+  </ng-container>
+
+  <mat-table [dataSource]="dataSource" matSort matSortDisableClear (matSortChange)="onSortChange($event)">
     <ng-container matColumnDef="actions">
       <mat-header-cell *matHeaderCellDef></mat-header-cell>
       <mat-cell *matCellDef="let row">
@@ -10,28 +14,28 @@
       </mat-cell>
     </ng-container>
 
-    <ng-container *ngFor="let tableColumn of tableColumns; let i = index">
-      <ng-container [matColumnDef]="tableColumn.field">
-        <mat-header-cell *matHeaderCellDef>
-          <header class="header-group">
-            <span mat-sort-header matTooltipPosition="above" class="header-title">{{tableColumn.header}}</span>
-            <mat-form-field>
-              <input
-                #field
-                matInput
-                placeholder="Search"
-                (click)="$event.stopPropagation()"
-                (keyup)="onFilterChange(field.value, tableColumn.field)"
-                (keydown)="$event.stopPropagation()"
-              /></mat-form-field>
-          </header>
-        </mat-header-cell>
-        <mat-cell *matCellDef="let row">{{ row | tableColumnField: tableColumn.field}}</mat-cell>
-      </ng-container>
+    <ng-container *ngFor="let tableColumn of tableConfig.columns; let i = index" [matColumnDef]="tableColumn.field">
+      <mat-header-cell *matHeaderCellDef>
+        <header class="header-group">
+          <span mat-sort-header matTooltipPosition="above" class="header-title">{{tableColumn.header}}</span>
+          <mat-form-field>
+            <input
+              #field
+              matInput
+              placeholder="Search"
+              formControlName="{{ tableColumn.field }}"
+              (click)="$event.stopPropagation()"
+            /></mat-form-field>
+        </header>
+      </mat-header-cell>
+      <mat-cell *matCellDef="let row">{{ row | tableColumnField: tableColumn.field}}</mat-cell>
     </ng-container>
 
     <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
     <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+
+    <div *matNoDataRow>No data</div>
+
   </mat-table>
 
   <mat-paginator
