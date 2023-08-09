@@ -1,12 +1,15 @@
 package com.projectservice.serviceapp.dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.*;
 
-@Data
+import java.util.List;
+
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@Getter
+@Setter
 public class ClientDto {
 
     private Integer id;
@@ -15,4 +18,6 @@ public class ClientDto {
     private String phoneNo;
     private String email;
     private String address;
+    @JsonIgnore
+    private List<ServiceReportDto> serviceReports;
 }

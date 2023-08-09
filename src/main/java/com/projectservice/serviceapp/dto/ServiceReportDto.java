@@ -1,16 +1,17 @@
 package com.projectservice.serviceapp.dto;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.projectservice.serviceapp.model.SparePart;
 import lombok.*;
 
 import java.sql.Date;
+import java.time.LocalDateTime;
 import java.util.List;
 
-@Data
+
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@Getter
+@Setter
 public class ServiceReportDto {
 
     private Integer id;
@@ -20,10 +21,10 @@ public class ServiceReportDto {
     private String serviceDescription;
     private String labor;
     private String technician;
-    private ServiceReportStatusDto status;
-    private Date receiptDate;
-    private Date deviceCheckOut;
-    @JsonBackReference
+    private List<ServiceReportStatusDto> statusList;
+    private Integer currentStatusCode;
+    private String receiptDate;
+    private String checkOutDate;
     private DeviceDto device;
     private ClientDto client;
     private List<SparePartDto> sparePartList;

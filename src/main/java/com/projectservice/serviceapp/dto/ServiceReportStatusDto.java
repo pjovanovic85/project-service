@@ -1,6 +1,10 @@
 package com.projectservice.serviceapp.dto;
 
-import lombok.*;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.sql.Date;
 
@@ -14,5 +18,7 @@ public class ServiceReportStatusDto {
     private int statusCode;
     private String description;
     private Date modifyDate;
+    @JsonIgnore
+    private ServiceReportDto serviceReport;
 
 }

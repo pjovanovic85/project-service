@@ -1,14 +1,14 @@
 package com.projectservice.serviceapp.dto;
 
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
-import java.util.List;
-
+@Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Getter
-@Setter
 public class SparePartDto {
 
 
@@ -16,5 +16,8 @@ public class SparePartDto {
     private String serialNo;
     private String name;
     private String description;
-    private List<ServiceReportDto> serviceReportList;
+    private int availableQuantity;
+    private int usedQuantity;
+    private Double price;
+    private String location;
 }

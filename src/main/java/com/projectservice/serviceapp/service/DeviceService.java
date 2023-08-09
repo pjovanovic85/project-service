@@ -38,7 +38,7 @@ public class DeviceService {
         }
     }
 
-    public List<DeviceDto> findBySerialNumber(Map<String, String> params){
+    public List<DeviceDto> getAllDevices(Map<String, String> params){
         List<Device> devices = deviceRepository.findAll(genericSpecification.hasParameter(params));
 
         return mapper.mapToDtoList(devices, DeviceDto.class);

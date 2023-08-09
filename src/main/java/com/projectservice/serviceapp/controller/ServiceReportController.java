@@ -10,7 +10,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -49,5 +48,13 @@ public class ServiceReportController {
     public ResponseEntity<?> updateDeviceStatus(@RequestParam Integer id, @RequestParam Integer statusCode){
 
         return new ResponseEntity<>(serviceReportService.updateStatus(id, statusCode), HttpStatus.OK);
+    }
+
+    @PutMapping("/update-service-intervention")
+    public ResponseEntity<?> updateDeviceStatus(@RequestParam Integer serviceReportId,
+                                                @RequestParam String serviceDescription,
+                                                @RequestBody Map<Integer, Integer> sparePartMap){
+
+        return new ResponseEntity<>(serviceReportService.updateWithServiceIntervention(serviceReportId, sparePartMap, serviceDescription), HttpStatus.OK);
     }
 }
